@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">muzzaf App</string>
+    <string name="register">REGISTER</string>
+    <string name="login_email_hint">Email</string>
+    <string name="login_password_hint">Password</string>
+    <string name="signup_login_hint">Already have an account? Sign In</string>
+    <string name="login_signup_hint">Don\'t have an account? Sign Up</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="Add_offer">new Offer</string>
+    <string name="offerName">offer Name</string>
+    <string name="offerDetails">Offer Detials</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="place_name">Place Name</string>
+    <string name="location">Location</string>
+    <string name="locat">Locate</string>
+    <string name="DateTxt">Date</string>
+    <string name="order">Order</string>
+    <string name="feedBack">FeedBack</string>
+    <string name="add_event_assign">Upload</string>
+    <string name="Status">Place Type</string>
+    <string name="visitState">Visit State</string>
+    <string name="KeyPerson">Key Person</string>
+    <string name="TimeTxt">Time</string>
+    <string name="contactPerson">Contact Person</string>
+</resources>
