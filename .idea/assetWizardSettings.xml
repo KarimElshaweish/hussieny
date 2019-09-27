@@ -46,8 +46,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="C:\Users\Karim\Downloads\icons8-feedback-64.png" />
-                                      <entry key="outputName" value="ic_feedback" />
+                                      <entry key="imageAsset" value="C:\Users\Karim\Downloads\icons8-business-building-50.png" />
+                                      <entry key="outputName" value="ic_building" />
                                       <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="000000" />
                                     </map>
@@ -109,7 +109,7 @@
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="iconShape" value="CIRCLE" />
-                                      <entry key="imageAsset" value="C:\Users\Karim\Desktop\logo\scoope_Artboard 1@2x.png" />
+                                      <entry key="imageAsset" value="C:\Users\Karim\Downloads\icons8-name-50.png" />
                                       <entry key="outputName" value="ic_logo_round" />
                                     </map>
                                   </option>
@@ -141,7 +141,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputIconType" value="LAUNCHER_LEGACY" />
+                            <entry key="outputIconType" value="ACTIONBAR" />
                           </map>
                         </option>
                       </PersistentState>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.karim.muzzafapp">
+    package="com.example.karim.MedicalRep">
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name=".App"
+        android:name="com.example.karim.MedicalRep.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
@@ -25,21 +25,14 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
 
-        <receiver
-            android:name=".Brodcast.MyReceiver"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.DOCK_EVENT" />
-            </intent-filter>
-        </receiver>
+
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.karim.MedicalRep.MainActivity"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize|adjustPan"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activites.SplashScreen"
+            android:name="com.example.karim.MedicalRep.Activites.SplashScreen"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,19 +46,7 @@
             android:value="barcode" />
 
         <activity
-            android:name=".Activites.timerList"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activites.Register"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activites.WinnerWeek"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activites.Durations"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activites.DayList"
+            android:name="com.example.karim.MedicalRep.Activites.Register"
             android:screenOrientation="portrait" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -79,8 +60,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".Activites.newoffer" />
-        <activity android:name=".Activites.DetailsActivity"></activity>
+        <activity android:name="com.example.karim.MedicalRep.Activites.DetailsActivity"></activity>
     </application>
 
 </manifest>

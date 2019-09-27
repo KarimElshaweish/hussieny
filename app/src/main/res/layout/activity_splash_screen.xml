@@ -10,7 +10,7 @@
     <ImageView
         android:layout_width="200px"
         android:layout_height="200px"
-        android:src="@drawable/splash_ic"
+        android:src="@drawable/logo"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"/>
 </RelativeLayout>
