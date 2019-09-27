@@ -106,13 +106,11 @@ PlaceData placeData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Window w=getWindow();
-        w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        Window w=getWindow();
+//        w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+//        w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.activity_main);
-            __init__();
-
-
+        __init__();
 
     }
 
@@ -129,9 +127,11 @@ PlaceData placeData;
                 case 2:
                     return new MapFragment();
                 case 1:
-                    if(!shared.admin)
-                    return new AddOrder();
-                    return new GraphFragment();
+                    if(!shared.admin) {
+                        return new AddOrder();
+                    }else {
+                        return new GraphFragment();
+                    }
                 case 0:
                     default:
                     return new OrderList();

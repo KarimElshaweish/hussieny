@@ -1,19 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<ScrollView
+    android:padding="5dp"
+    tools:context=".Fragment.AddOrder"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#f2f2f2"
-    tools:context=".Fragment.AddOrder">
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
                 android:padding="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -22,7 +17,7 @@
                     android:fontFamily="@font/nexa_normal"
                     android:layout_margin="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/place_name"
                     android:textColor="#545454"
                     />
@@ -33,7 +28,7 @@
                     <EditText
                         android:fontFamily="@font/nexa_normal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/placeName"
                         />
@@ -43,24 +38,24 @@
                     android:textColor="#545454"
                     android:layout_margin="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/location"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:layout_weight="5">
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_weight="4"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:background="@drawable/linear_white">
                         <EditText
                             android:fontFamily="@font/nexa_normal"
                             android:editable="false"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:backgroundTint="#fff"
                             android:id="@+id/locationName"
                             />
@@ -70,18 +65,18 @@
                     android:fontFamily="@font/nexa_normal"
                     android:textColor="#545454"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:text="@string/DateTxt" />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/linear_white">
                     <EditText
                         android:fontFamily="@font/nexa_normal"
                         android:editable="false"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/orderDate"
                         />
@@ -90,18 +85,18 @@
                     android:fontFamily="@font/nexa_normal"
                     android:textColor="#545454"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:text="@string/TimeTxt" />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/linear_white">
                     <EditText
                         android:fontFamily="@font/nexa_normal"
                         android:editable="false"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/orderTime"
                         />
@@ -111,100 +106,102 @@
                     android:textColor="#545454"
                     android:layout_margin="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/order"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/linear_white">
                     <EditText
                         android:fontFamily="@font/nexa_normal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/orderValue"
                         />
                 </LinearLayout>
+
+
                 <TextView
-                android:fontFamily="@font/nexa_normal"
-                android:textColor="#545454"
-                android:layout_margin="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/Status"
-                />
+                    android:fontFamily="@font/nexa_normal"
+                    android:textColor="#545454"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="@string/Status"
+                    />
                 <LinearLayout
                     android:padding="15dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="@drawable/linear_white">
-                   <RadioGroup
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:id="@+id/statGroupRadioButton">
-                       <RadioButton
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:textSize="15dp"
-                           android:text="Hospital"
-                           android:fontFamily="@font/nexa_normal"
-                           android:id="@+id/opt1RadioButton"/>
-                       <RadioButton
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:textSize="15dp"
-                           android:text="Clinic"
-                           android:fontFamily="@font/nexa_normal"
-                           android:id="@+id/opt2RadioButton"/>
-                       <RadioButton
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:textSize="15dp"
-                           android:text="University"
-                           android:fontFamily="@font/nexa_normal"
-                           android:id="@+id/opt4RadioButton"/>
-                       <RadioButton
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:textSize="15dp"
-                           android:text="Others"
-                           android:fontFamily="@font/nexa_normal"
-                       />
-                   </RadioGroup>
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/statGroupRadioButton">
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:text="Hospital"
+                            android:fontFamily="@font/nexa_normal"
+                            android:id="@+id/opt1RadioButton"/>
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:text="Clinic"
+                            android:fontFamily="@font/nexa_normal"
+                            android:id="@+id/opt2RadioButton"/>
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:text="University"
+                            android:fontFamily="@font/nexa_normal"
+                            android:id="@+id/opt4RadioButton"/>
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:text="Others"
+                            android:fontFamily="@font/nexa_normal"
+                            />
+                    </RadioGroup>
                 </LinearLayout>
                 <TextView
-                android:fontFamily="@font/aller"
-                android:textColor="#545454"
-                android:layout_margin="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/visitState"
-                />
+                    android:fontFamily="@font/aller"
+                    android:textColor="#545454"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/visitState"
+                    />
                 <LinearLayout
                     android:padding="15dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/linear_white">
-                   <RadioGroup
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:id="@+id/visitStatGroupRadioButton">
-                       <RadioButton
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:textSize="15dp"
-                           android:text="First Time"
-                           android:fontFamily="@font/aller"
-                           android:id="@+id/fristTime"/>
-                       <RadioButton
-                           android:layout_width="match_parent"
-                           android:layout_height="wrap_content"
-                           android:textSize="15dp"
-                           android:text="Follow Up"
-                           android:fontFamily="@font/aller"
-                           android:id="@+id/followUpRadioButton"/>
-                   </RadioGroup>
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/visitStatGroupRadioButton">
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:text="First Time"
+                            android:fontFamily="@font/aller"
+                            android:id="@+id/fristTime"/>
+                        <RadioButton
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="15dp"
+                            android:text="Follow Up"
+                            android:fontFamily="@font/aller"
+                            android:id="@+id/followUpRadioButton"/>
+                    </RadioGroup>
                 </LinearLayout>
                 <TextView
                     android:fontFamily="@font/aller"
@@ -226,7 +223,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/CotnactPersonName"
                         android:hint="Name"
@@ -235,7 +232,7 @@
                 <LinearLayout
                     android:layout_marginTop="7dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@drawable/linear_white">
                     <EditText
@@ -243,7 +240,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/contactTitle"
                         android:hint="Title"
@@ -252,7 +249,7 @@
                 <LinearLayout
                     android:layout_marginTop="7dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@drawable/linear_white">
                     <EditText
@@ -261,7 +258,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/ContactPhoneNumber"
                         android:hint="Phone Number"
@@ -270,7 +267,7 @@
                 <LinearLayout
                     android:layout_marginTop="7dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@drawable/linear_white">
                     <EditText
@@ -279,7 +276,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/contactEmail"
                         android:hint="Email"
@@ -288,7 +285,7 @@
                 <LinearLayout
                     android:layout_marginTop="7dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@drawable/linear_white">
                     <EditText
@@ -297,7 +294,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/contactcomments"
                         android:hint="Comments"
@@ -308,14 +305,14 @@
                     android:textColor="#545454"
                     android:layout_margin="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/KeyPerson"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal"
                     />
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@drawable/linear_white">
                     <EditText
@@ -323,7 +320,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/keyPersonName"
                         android:hint="Name"
@@ -333,7 +330,7 @@
                 <LinearLayout
                     android:layout_marginTop="7dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@drawable/linear_white">
                     <EditText
@@ -341,7 +338,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/keyTitle"
                         android:hint="Title"
@@ -350,7 +347,7 @@
                 <LinearLayout
                     android:layout_marginTop="7dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@drawable/linear_white">
                     <EditText
@@ -359,7 +356,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/keyPhoneNumber"
                         android:hint="Phone Number"
@@ -368,7 +365,7 @@
                 <LinearLayout
                     android:layout_marginTop="7dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:background="@drawable/linear_white">
                     <EditText
@@ -377,7 +374,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/keyEmail"
                         android:hint="Email"
@@ -395,7 +392,7 @@
                         android:layout_gravity="center_horizontal"
                         android:gravity="center_horizontal"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
                         android:id="@+id/keycomments"
                         android:hint="Comments"
@@ -406,7 +403,7 @@
                     android:textColor="#545454"
                     android:layout_margin="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="@string/feedBack"
                     />
                 <LinearLayout
@@ -415,26 +412,25 @@
                     android:background="@drawable/linear_white">
                     <EditText
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:backgroundTint="#fff"
-                            android:id="@+id/feedback"
+                        android:id="@+id/feedback"
                         />
                 </LinearLayout>
                 <Button
+
+                    android:layout_margin="5dp"
                     android:fontFamily="@font/aller"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="10dp"
                     android:id="@+id/btnUpload"
                     android:padding="10dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:textColor="#fff"
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:textSize="15dp"
                     android:background="@drawable/btn_green"
                     android:text="@string/add_event_assign"/>
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-</FrameLayout
->
+        </LinearLayout>
+</ScrollView>

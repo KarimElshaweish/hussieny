@@ -1,19 +1,17 @@
 package com.example.karim.MedicalRep.Activites;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.karim.MedicalRep.MainActivity;
 import com.example.karim.MedicalRep.R;
@@ -27,6 +25,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -65,9 +64,9 @@ public class Register extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Window w=getWindow();
-        w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//        Window w=getWindow();
+//        w.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+//        w.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.activity_register);
         __init__();
     }
@@ -94,16 +93,25 @@ public class Register extends AppCompatActivity {
         }else if(passwordText.getText().equals("")){
             passwordText.setError("please enter your password");
         }else{
-            signUp(emailTextRegister.getText().toString(),passwordText.getText().toString());
+            signUp(emailTextRegister.getText().toString(),passwordText.getText().toString(),nameText.getText().toString());
         }
     }
-    private void signUp(String email,String password){
-        mAuth.createUserWithEmailAndPassword(email, password)
+    private void signUp(String email, String password, final String name){
+        mAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            pushData();
+                            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                                    .setDisplayName(name)
+                                    .build();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            user.updateProfile(profileUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    pushData();
+                                }
+                            });
                         } else {
                             Toast.makeText(Register.this, "Authentication failed:"+task.getException().getMessage(),
                                     Toast.LENGTH_SHORT).show();
@@ -161,6 +169,7 @@ public class Register extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 progressDialog.dismiss();
                                 FirebaseUser user = mAuth.getCurrentUser();
+                                finish();
                                 startActivity(new Intent(Register.this,MainActivity.class));
                             } else {
                                 progressDialog.dismiss();

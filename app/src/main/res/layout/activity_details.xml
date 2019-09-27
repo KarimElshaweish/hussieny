@@ -3,14 +3,22 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android" >
-<RelativeLayout android:layout_height="100dp"
+<RelativeLayout
+    android:layout_height="100dp"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <ImageView
         android:layout_width="100dp"
         android:layout_height="80dp"
         android:src="@drawable/logo"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"/>
+    <ImageView
+        android:onClick="finish"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_back_black"
+        android:layout_centerVertical="true"/>
 </RelativeLayout>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -492,6 +500,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <EditText
+                android:padding="5dp"
                 android:fontFamily="@font/nexa_normal"
                 android:id="@+id/msgText"
                 android:layout_width="match_parent"

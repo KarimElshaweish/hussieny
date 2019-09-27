@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 
 import com.example.karim.MedicalRep.MyItem;
 import com.example.karim.MedicalRep.R;
+import com.example.karim.MedicalRep.model.Order;
 import com.example.karim.MedicalRep.shared;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -54,11 +55,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     ProgressDialog progressDialog;
     private void   getData(){
 
-        progressDialog=new ProgressDialog(getContext());
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setTitle("Loading  data .....");
-        progressDialog.show();
-        FirebaseDatabase.getInstance().getReference("MedicalOrder").addValueEventListener(new ValueEventListener() {
+
+        FirebaseDatabase.getInstance().getReference("MedicalOrder").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 latLngList=new ArrayList<>();
@@ -68,16 +66,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                             .addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    progressDialog=new ProgressDialog(getContext());
+                                    progressDialog.setCanceledOnTouchOutside(false);
+                                    progressDialog.setTitle("Loading  data .....");
+                                    progressDialog.show();
                                     for(DataSnapshot dt:dataSnapshot.getChildren())
                                     {
                                         for(DataSnapshot dt1:dt.getChildren()){
-
-                                            com.example.karim.MedicalRep.model.Order order=dt1.getValue(com.example.karim.MedicalRep.model.Order.class);
-                                            LatLng latLng=new LatLng(order.getLituide(),order.getLongtuide());
-                                            hashMap.put(latLng,order);
-                                            latLngList.add(latLng);
-                                            MyItem offsetItem = new MyItem(order.getLituide(), order.getLongtuide());
-                                            mClusterManager.addItem(offsetItem);
+                                           for(DataSnapshot dt2:dt1.getChildren()) {
+                                               com.example.karim.MedicalRep.model.Order order = dt2.getValue(com.example.karim.MedicalRep.model.Order.class);
+                                               LatLng latLng = new LatLng(order.getLituide(), order.getLongtuide());
+                                               hashMap.put(latLng, order);
+                                               latLngList.add(latLng);
+                                               MyItem offsetItem = new MyItem(order.getLituide(), order.getLongtuide());
+                                               mClusterManager.addItem(offsetItem);
+                                           }
                                         }
                                     }
                                     if(latLngList.size()!=0)
@@ -142,13 +145,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
     }
 
     private void getAllData() {
-        progressDialog=new ProgressDialog(getContext());
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setTitle("Loading  data .....");
-        progressDialog.show();
-        FirebaseDatabase.getInstance().getReference("MedicalOrder").addValueEventListener(new ValueEventListener() {
+
+        FirebaseDatabase.getInstance().getReference("MedicalOrder").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mMap.clear();
+                progressDialog=new ProgressDialog(getContext());
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.setTitle("Loading  data .....");
+                progressDialog.show();
                 latLngList=new ArrayList<>();
                 hashMap=new HashMap<>();
                 for(DataSnapshot dt:dataSnapshot.getChildren())
@@ -156,19 +161,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                     for(DataSnapshot dt1:dt.getChildren()) {
 
                         for (DataSnapshot dt2 : dt1.getChildren()) {
-                            com.example.karim.MedicalRep.model.Order order = dt2.getValue(com.example.karim.MedicalRep.model.Order.class);
-                            LatLng latLng = new LatLng(order.getLituide(), order.getLongtuide());
-                            hashMap.put(latLng, order);
-                            latLngList.add(latLng);
-                            MyItem offsetItem = new MyItem(order.getLituide(), order.getLongtuide());
-                            mClusterManager.addItem(offsetItem);
+                            for(DataSnapshot dt3:dt2.getChildren()) {
+                                com.example.karim.MedicalRep.model.Order order = dt3.getValue(com.example.karim.MedicalRep.model.Order.class);
+                                LatLng latLng = new LatLng(order.getLituide(), order.getLongtuide());
+                                hashMap.put(latLng, order);
+                                latLngList.add(latLng);
+
+                            }
                         }
                     }
                 }
-                if(latLngList.size()!=0)
-                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latLngList.get(0).latitude,latLngList.get(0).longitude),6));
-                progressDialog.dismiss();
-                }
+                if(latLngList.size()!=0) {
+                    for(LatLng lat :latLngList) {
+                        MyItem offsetItem = new MyItem(lat.latitude, lat.longitude);
+                        mClusterManager.addItem(offsetItem);
+                    }
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(latLngList.get(0).latitude, latLngList.get(0).longitude), 8));
+                }progressDialog.dismiss();
+            }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

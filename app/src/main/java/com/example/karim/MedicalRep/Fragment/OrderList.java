@@ -57,28 +57,33 @@ public class OrderList extends Fragment {
         return v;
     }
     ProgressDialog progressDialog;
-    List<String>keyList;
+    List<String>keyList,idKey;
     private void getData(){
-        progressDialog=new ProgressDialog(getContext());
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setTitle("Loading  data .....");
-        progressDialog.show();
+
 
         if(shared.admin){
             FirebaseDatabase.getInstance().getReference("MedicalOrder").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    progressDialog=new ProgressDialog(getContext());
+                    progressDialog.setCanceledOnTouchOutside(false);
+                    progressDialog.setTitle("Loading  data .....");
+                    progressDialog.show();
                     keyList=new ArrayList<>();
+                    idKey=new ArrayList<>();
                     orderList=new ArrayList<>();
                    for(DataSnapshot dt:dataSnapshot.getChildren())
                        for(DataSnapshot dt1:dt.getChildren())
                            for(DataSnapshot dt2: dt1.getChildren()) {
-                               orderList.add(dt2.getValue(Order.class));
-                               keyList.add(dt.getKey());
+                               for(DataSnapshot dt3:dt2.getChildren()) {
+                                   orderList.add(dt3.getValue(Order.class));
+                                   keyList.add(dt1.getKey());
+                                   idKey.add(dt.getKey());
+                               }
                            }
 
 
-                    orderAdapter=new orderAdapter(getContext(),orderList,keyList);
+                    orderAdapter=new orderAdapter(getContext(),orderList,keyList,idKey);
                     rv.setAdapter(orderAdapter);
                     progressDialog.dismiss();
                 }
@@ -94,22 +99,29 @@ public class OrderList extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 orderList=new ArrayList<>();
                 keyList=new ArrayList<>();
+                idKey=new ArrayList<>();
                 final String user=FirebaseAuth.getInstance().getCurrentUser().getUid();
                 if(dataSnapshot.hasChild(FirebaseAuth.getInstance().getCurrentUser().getUid())){
                     FirebaseDatabase.getInstance().getReference("MedicalOrder").child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                             .addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    progressDialog=new ProgressDialog(getContext());
+                                    progressDialog.setCanceledOnTouchOutside(false);
+                                    progressDialog.setTitle("Loading  data .....");
+                                    progressDialog.show();
                                     for(DataSnapshot dt:dataSnapshot.getChildren())
                                     {
                                         for(DataSnapshot dt1:dt.getChildren()){
-
-                                            com.example.karim.MedicalRep.model.Order order=dt1.getValue(com.example.karim.MedicalRep.model.Order.class);
-                                         orderList.add(order);
-                                         keyList.add(user);
+                                            for(DataSnapshot dt2:dt1.getChildren()) {
+                                                com.example.karim.MedicalRep.model.Order order = dt2.getValue(com.example.karim.MedicalRep.model.Order.class);
+                                                orderList.add(order);
+                                                keyList.add(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+                                                idKey.add(user);
+                                            }
                                         }
                                     }
-                                    orderAdapter=new orderAdapter(getContext(),orderList,keyList);
+                                    orderAdapter=new orderAdapter(getContext(),orderList,keyList,idKey);
                                     rv.setAdapter(orderAdapter);
                                     progressDialog.dismiss();
                                 }

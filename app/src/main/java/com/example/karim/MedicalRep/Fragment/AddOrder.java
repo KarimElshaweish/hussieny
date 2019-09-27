@@ -14,7 +14,9 @@ import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -22,6 +24,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.karim.MedicalRep.R;
@@ -61,9 +64,11 @@ public class AddOrder extends Fragment implements LocationListener {
             Order order=new Order();
             int selectID=statGroupRadioButton.getCheckedRadioButtonId();
             RadioButton rd=getView().findViewById(selectID);
+            if(rd!=null)
             order.setPlacState(rd.getText().toString());
             int selectId2=visitStatGroupRadioButton.getCheckedRadioButtonId();
             RadioButton rd2=getView().findViewById(selectId2);
+            if(rd2!=null)
             order.setVisitState(rd2.getText().toString());
             order.setFeedback(feedback.getText().toString());
             order.setKeyPersonComments(keycomments.getText().toString());
@@ -174,6 +179,7 @@ public class AddOrder extends Fragment implements LocationListener {
         progressDialog.setCanceledOnTouchOutside(false);
         FirebaseDatabase.getInstance().getReference("MedicalOrder")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(FirebaseAuth.getInstance().getCurrentUser().getDisplayName())
                 .child(order.getPlaceName())
                 .child(order.getTime())
                 .setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -203,13 +209,15 @@ public class AddOrder extends Fragment implements LocationListener {
         orderValue.setText("");
         statGroupRadioButton.clearCheck();
         visitStatGroupRadioButton.clearCheck();
+        checkGPS();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable  ViewGroup container,
                             @Nullable Bundle savedInstanceState) {
-         View v=inflater.inflate(R.layout.fragment_add_order, container, false);
-         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        visitStatGroupRadioButton=v.findViewById(R.id.visitStatGroupRadioButton);
+
+        View v=inflater.inflate(R.layout.fragment_add_order, container, false);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+       visitStatGroupRadioButton=v.findViewById(R.id.visitStatGroupRadioButton);
         statGroupRadioButton=v.findViewById(R.id.statGroupRadioButton);
          locationText=v.findViewById(R.id.locationName);
         placeName=v.findViewById(R.id.placeName);
@@ -239,6 +247,8 @@ public class AddOrder extends Fragment implements LocationListener {
                 setData();
             }
         });
+
+
          return v;
     }
 

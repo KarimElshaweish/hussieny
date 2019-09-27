@@ -1,41 +1,50 @@
 package com.example.karim.MedicalRep.Fragment;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.example.karim.MedicalRep.R;
-
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.example.karim.MedicalRep.model.Order;
-import com.example.karim.MedicalRep.model.User;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GraphFragment extends Fragment {
 
 
+
+
+
+    private void visitCount(){
+
+        FirebaseDatabase.getInstance().getReference("MedicalOrder")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +57,14 @@ public class GraphFragment extends Fragment {
     int emp=0;
     ArrayList<String>label,value;
     private void getData() {
-        progressDialog = new ProgressDialog(getContext());
-        progressDialog.setCanceledOnTouchOutside(false);
-        progressDialog.setTitle("Loading  data .....");
-        progressDialog.show();
+
         FirebaseDatabase.getInstance().getReference("MedicalOrder").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                progressDialog = new ProgressDialog(getContext());
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.setTitle("Loading  data .....");
+                progressDialog.show();
                 label = new ArrayList<>();
                 value = new ArrayList<>();
                 cnt = 0;
@@ -62,49 +72,31 @@ public class GraphFragment extends Fragment {
                 for (DataSnapshot dt : dataSnapshot.getChildren()) {
                     emp = 0;
                     for (DataSnapshot dt1 : dt.getChildren()) {
-                        for (DataSnapshot dt2 : dt1.getChildren()) {
-                            orderList.add(dt2.getValue(Order.class));
-                            cnt++;
-                            emp++;
-                        }
+
+                            label.add(dt1.getKey());
+                            value.add(String.valueOf(dt1.getChildrenCount()));
+
+
                     }
-                    label.add(dt.getKey());
-                    value.add(String.valueOf(emp));
+
                 }
-                compEntry = new ArrayList();
-                final ArrayList<String> labelsName = new ArrayList<>();
-                FirebaseDatabase.getInstance().getReference("OrderUser").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        int i = 0;
-                        for (DataSnapshot dt : dataSnapshot.getChildren()) {
-                            if (dt.getKey().equals(label.get(i))) {
-                                i++;
-                                User user = dt.getValue(User.class);
-                                labelsName.add(user.getEmail());
-                            }
-                        }
-                        i = 0;
-                        for (String s : labelsName) {
-                            float val = Float.parseFloat(value.get(i));
-                            compEntry.add(new PieEntry(val / Float.parseFloat(String.valueOf(cnt)), s));
-                            i++;
-                        }
-                        PieDataSet dataSet = new PieDataSet(compEntry, " 4 Comp");
-                        PieData data = new PieData(dataSet);
-                        pieChart.setData(data);
-                        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
-                        pieChart.animateXY(5000, 5000);
-                        progressDialog.dismiss();
-                    }
+                progressDialog.dismiss();
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                ArrayList<BarEntry>valueSets=new ArrayList<>();
+                int i=0;
+                for(String val:value){
+                    valueSets.add(new BarEntry(Float.parseFloat(val),i++));
+                }
 
-                    }
-                });
-
-
+                BarDataSet barDataSet1 = new BarDataSet(valueSets, "visits");
+                barDataSet1.setColor(Color.rgb(0, 155, 0));
+                ArrayList<BarDataSet> dataSets = new ArrayList<>();
+                dataSets.add(barDataSet1);
+                BarData data = new BarData(label, dataSets);
+                barChart.setData(data);
+                barChart.setDescription("Visits");
+                barChart.animateXY(2000, 2000);
+                barChart.invalidate();
             }
 
             @Override
@@ -114,13 +106,14 @@ public class GraphFragment extends Fragment {
         });
     }
 
-    ArrayList<PieEntry> compEntry;
-    PieChart pieChart;
+ //   ArrayList<PieEntry> compEntry;
+    BarChart barChart;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
          View view= inflater.inflate(R.layout.fragment_graph, container, false);
-         pieChart = view.findViewById(R.id.piechart);
+         barChart = view.findViewById(R.id.piechart);
+
 
 getData();
 
@@ -148,14 +141,14 @@ getData();
         year.add("2016");
         year.add("2017");
 
-     //   BarDataSet bardataset = new BarDataSet(NoOfEmp, "No Of Employee");
-        chart.animateY(5000);
-        ArrayList<IBarDataSet>dataSets=new ArrayList<>();
-        BarDataSet bardataset=new BarDataSet(NoOfEmp,"Company");
-        dataSets.add(bardataset);
-        BarData data1 = new BarData(dataSets);
-        bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
-        chart.setData(data1);
+//     //   BarDataSet bardataset = new BarDataSet(NoOfEmp, "No Of Employee");
+//        chart.animateY(5000);
+//        ArrayList<IBarDataSet>dataSets=new ArrayList<>();
+//        BarDataSet bardataset=new BarDataSet(NoOfEmp,"Company");
+//        dataSets.add(bardataset);
+//        BarData data1 = new BarData(dataSets);
+//        bardataset.setColors(ColorTemplate.COLORFUL_COLORS);
+//        chart.setData(data1);
          return view;
     }
 }

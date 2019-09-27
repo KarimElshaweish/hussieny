@@ -96,4 +96,8 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void finish(View view) {
+        finish();
+    }
 }

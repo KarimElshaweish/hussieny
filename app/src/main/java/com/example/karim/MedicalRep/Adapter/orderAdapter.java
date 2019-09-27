@@ -24,11 +24,12 @@ import androidx.recyclerview.widget.RecyclerView;
 public class orderAdapter extends RecyclerView.Adapter<orderAdapter.ViewHolder> {
     Context _ctx;
     List<Order> orderList;
-    List<String>keyList;
-    public orderAdapter(Context _ctx, List<Order> orderList,List<String>keyList) {
+    List<String>keyList,idKeyList;
+    public orderAdapter(Context _ctx, List<Order> orderList,List<String>keyList,List<String>idKeyList) {
         this._ctx = _ctx;
         this.orderList = orderList;
         this.keyList=keyList;
+        this.idKeyList=idKeyList;
     }
 
     @NonNull
@@ -44,20 +45,28 @@ public class orderAdapter extends RecyclerView.Adapter<orderAdapter.ViewHolder> 
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                orderList.get(position).setSeen(true);
-                FirebaseDatabase.getInstance().getReference("MedicalOrder")
-                        .child(keyList.get(position))
-                        .child(orderList.get(position).getPlaceName())
-                        .child(orderList.get(position).getTime())
-                        .setValue(orderList.get(position)).addOnSuccessListener(new OnSuccessListener<Void>() {@Override
-                    public void onSuccess(Void aVoid) {
-                            if(!oldseen)
+              final   Intent intent = new Intent(_ctx, DetailsActivity.class);
+                shared.order = orderList.get(position);
+                if(shared.admin) {
+                    orderList.get(position).setSeen(true);
+                    FirebaseDatabase.getInstance().getReference("MedicalOrder")
+                            .child(idKeyList.get(position))
+                            .child(keyList.get(position))
+                            .child(orderList.get(position).getPlaceName())
+                            .child(orderList.get(position).getTime())
+                            .setValue(orderList.get(position)).addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                            if (!oldseen)
                                 changeUI(holder);
-                        Intent intent=new Intent(_ctx, DetailsActivity.class);
-                    shared.order=orderList.get(position);
-                        _ctx.startActivity(intent);
-                    }
-                });
+
+                            _ctx.startActivity(intent);
+                        }
+                    });
+                }else{
+                    _ctx.startActivity(intent);
+
+                }
             }
         });
         holder.placeNameTxt.setText(orderList.get(position).getPlaceName());
