@@ -30,26 +30,7 @@ public class GraphFragment extends Fragment {
 
 
 
-    private void visitCount(){
 
-        FirebaseDatabase.getInstance().getReference("MedicalOrder")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
-    }
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
 
     ProgressDialog progressDialog;
     List<Order> orderList=new ArrayList<>();

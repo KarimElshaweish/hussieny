@@ -9,14 +9,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.Fragment;
-
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -24,8 +17,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.Fragment;
 
 import com.example.karim.MedicalRep.R;
 import com.example.karim.MedicalRep.model.Order;
@@ -190,6 +186,9 @@ public class AddOrder extends Fragment implements LocationListener {
             }
         });
     }
+
+
+
     public void reset(){
         locationText.setText("");
         placeName.setText("");
@@ -210,6 +209,7 @@ public class AddOrder extends Fragment implements LocationListener {
         statGroupRadioButton.clearCheck();
         visitStatGroupRadioButton.clearCheck();
         checkGPS();
+        resetTime();
     }
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable  ViewGroup container,
@@ -235,11 +235,7 @@ public class AddOrder extends Fragment implements LocationListener {
         contactEmail=v.findViewById(R.id.contactEmail);
         contactComments=v.findViewById(R.id.contactcomments);
         orderValue=v.findViewById(R.id.orderValue);
-        Date C=Calendar.getInstance().getTime();
-        SimpleDateFormat df=new SimpleDateFormat("dd/MM/yyyy");
-        SimpleDateFormat df1=new SimpleDateFormat("hh:mm");
-        orderDate.setText(df.format(C));
-        orderTime.setText(df1.format(C));
+       resetTime();
         btnUpload=v.findViewById(R.id.btnUpload);
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,6 +246,13 @@ public class AddOrder extends Fragment implements LocationListener {
 
 
          return v;
+    }
+    private void resetTime(){
+        Date C = Calendar.getInstance().getTime();
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat df1 = new SimpleDateFormat("hh:mm");
+        orderDate.setText(df.format(C));
+        orderTime.setText(df1.format(C));
     }
 
 }

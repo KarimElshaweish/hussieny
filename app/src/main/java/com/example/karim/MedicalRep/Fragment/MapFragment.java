@@ -146,7 +146,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     private void getAllData() {
 
-        FirebaseDatabase.getInstance().getReference("MedicalOrder").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("MedicalOrder").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mMap.clear();
