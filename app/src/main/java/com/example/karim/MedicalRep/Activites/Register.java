@@ -79,20 +79,22 @@ public class Register extends AppCompatActivity {
         registerLayout.setVisibility(View.GONE);
     }
     public void Registerfunc(View v){
-        pb.setVisibility(View.VISIBLE);
-        nameText.setEnabled(false);
-        passwordText.setEnabled(false);
-        emailTextRegister.setEnabled(false);
+
         validation();
     }
     private void validation(){
-        if(nameText.getText().equals("")){
+        String name=nameText.getText().toString();
+        if(name.equals("")){
             nameText.setError("please enter your name");
-        }else if(emailTextRegister.getText().equals("")){
+        }else if(emailTextRegister.getText().toString().equals("")){
             emailTextRegister.setText("please enter your email");
-        }else if(passwordText.getText().equals("")){
+        }else if(passwordText.getText().toString().equals("")){
             passwordText.setError("please enter your password");
         }else{
+            pb.setVisibility(View.VISIBLE);
+            nameText.setEnabled(false);
+            passwordText.setEnabled(false);
+            emailTextRegister.setEnabled(false);
             signUp(emailTextRegister.getText().toString(),passwordText.getText().toString(),nameText.getText().toString());
         }
     }
