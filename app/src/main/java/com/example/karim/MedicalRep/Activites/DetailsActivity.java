@@ -74,13 +74,14 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     private void getMsgs() {
-        msgList=new ArrayList<>();
-        msgAdapter=new MsgAdapter(this,msgList);
+
         FirebaseDatabase.getInstance().getReference("Msg")
                 .child(order.getPlaceName())
                 .child(order.getTime()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                msgList=new ArrayList<>();
+                msgAdapter=new MsgAdapter(DetailsActivity.this,msgList);
                 for(DataSnapshot dt:dataSnapshot.getChildren()){
                     Msg msg=dt.getValue(Msg.class);
                     msgList.add(msg);

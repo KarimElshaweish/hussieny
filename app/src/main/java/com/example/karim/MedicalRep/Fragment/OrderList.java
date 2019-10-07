@@ -76,9 +76,10 @@ public class OrderList extends Fragment {
                        for(DataSnapshot dt1:dt.getChildren())
                            for(DataSnapshot dt2: dt1.getChildren()) {
                                for(DataSnapshot dt3:dt2.getChildren()) {
-                                   orderList.add(dt3.getValue(Order.class));
-                                   keyList.add(dt1.getKey());
-                                   idKey.add(dt.getKey());
+                                       orderList.add(dt3.getValue(Order.class));
+                                       keyList.add(dt1.getKey());
+                                       idKey.add(dt.getKey());
+
                                }
                            }
 
