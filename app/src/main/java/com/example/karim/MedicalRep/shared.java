@@ -8,4 +8,7 @@ public class shared {
     public static String userName;
     public static Boolean admin=false;
     public static Order order;
+    public static void reset(){
+        admin=false;
+    }
 }

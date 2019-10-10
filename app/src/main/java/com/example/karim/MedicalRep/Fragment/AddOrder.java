@@ -78,13 +78,17 @@ public class AddOrder extends Fragment implements LocationListener {
             order.setLocation(locationText.getText().toString());
             order.setLituide(latiude);
             order.setLongtuide(longtuide);
-            order.setPlaceName(placeName.getText().toString());
-            order.setKeyPersonName(keyPersonName.getText().toString());
-            order.setKeyPersonTitle(keyTitle.getText().toString());
-            order.setContactEmail(contactEmail.getText().toString());
-            order.setContactComments(contactComments.getText().toString());
-            order.setOrderValue(orderValue.getText().toString());
-            publishOrder(order);
+            if(placeName.getText().toString().equals("")){
+                Toast.makeText(getContext(),"please open GPS and restart app ",Toast.LENGTH_LONG).show();
+            }else {
+                order.setPlaceName(placeName.getText().toString());
+                order.setKeyPersonName(keyPersonName.getText().toString());
+                order.setKeyPersonTitle(keyTitle.getText().toString());
+                order.setContactEmail(contactEmail.getText().toString());
+                order.setContactComments(contactComments.getText().toString());
+                order.setOrderValue(orderValue.getText().toString());
+                publishOrder(order);
+            }
         }else{
             Toast.makeText(getContext(), "please open the gps", Toast.LENGTH_SHORT).show();
         }

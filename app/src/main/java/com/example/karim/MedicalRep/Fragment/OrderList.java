@@ -1,6 +1,7 @@
 package com.example.karim.MedicalRep.Fragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -58,14 +59,15 @@ public class OrderList extends Fragment {
     }
     ProgressDialog progressDialog;
     List<String>keyList,idKey;
+    Context ctx=getContext();
     private void getData(){
-
+        final Context ctx=getContext();
 
         if(shared.admin){
             FirebaseDatabase.getInstance().getReference("MedicalOrder").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    progressDialog=new ProgressDialog(getContext());
+                    progressDialog=new ProgressDialog(ctx);
                     progressDialog.setCanceledOnTouchOutside(false);
                     progressDialog.setTitle("Loading  data .....");
                     progressDialog.show();
@@ -98,6 +100,7 @@ public class OrderList extends Fragment {
         FirebaseDatabase.getInstance().getReference("MedicalOrder").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 orderList=new ArrayList<>();
                 keyList=new ArrayList<>();
                 idKey=new ArrayList<>();
@@ -107,7 +110,7 @@ public class OrderList extends Fragment {
                             .addValueEventListener(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    progressDialog=new ProgressDialog(getContext());
+                                    progressDialog=new ProgressDialog(ctx);
                                     progressDialog.setCanceledOnTouchOutside(false);
                                     progressDialog.setTitle("Loading  data .....");
                                     progressDialog.show();

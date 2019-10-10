@@ -52,6 +52,13 @@ public class MainActivity extends AppCompatActivity implements LocationListener 
         tab.getTabAt(1).setText("Graph");
     }
 
+    @Override
+    public void onBackPressed() {
+        shared.reset();
+        this.finish();
+        super.onBackPressed();
+    }
+
     LocationManager mLocationManager;
     Geocoder gecoder;
     Double longtuide,lontuide;

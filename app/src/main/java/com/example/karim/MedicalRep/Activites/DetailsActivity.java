@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -65,7 +66,9 @@ public class DetailsActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("Msg")
                 .child(order.getPlaceName())
                 .child(order.getTime())
-                .child(msg.getMsg()).setValue(msg).addOnSuccessListener(new OnSuccessListener<Void>() {
+                .child(msg.getMsg())
+                .child(Calendar.getInstance().getTime().toString())
+                .setValue(msg).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
                 getMsgs();
@@ -83,9 +86,11 @@ public class DetailsActivity extends AppCompatActivity {
                 msgList=new ArrayList<>();
                 msgAdapter=new MsgAdapter(DetailsActivity.this,msgList);
                 for(DataSnapshot dt:dataSnapshot.getChildren()){
-                    Msg msg=dt.getValue(Msg.class);
-                    msgList.add(msg);
-                    msgTxt.setText("");
+                    for(DataSnapshot dt1:dt.getChildren()) {
+                        Msg msg = dt1.getValue(Msg.class);
+                        msgList.add(msg);
+                        msgTxt.setText("");
+                    }
                 }
                 msgAdapter=new MsgAdapter(DetailsActivity.this,msgList);
                 rv.setAdapter(msgAdapter);
